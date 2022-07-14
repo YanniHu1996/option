@@ -29,7 +29,7 @@ func main() {
 			if err != nil {
 				return err
 			}
-			args := strings.Split(string(data), " ")
+			args := strings.Split(strings.TrimSpace(string(data)), " ")
 
 			if cmd.Flags().Changed(FlagName) {
 				fset := pflag.NewFlagSet("option", pflag.ContinueOnError)
@@ -41,7 +41,9 @@ func main() {
 			}
 
 			if cmd.Flags().Changed(ArgIndex) {
-				value = args[argumentIndex]
+				if len(args) > argumentIndex {
+					value = args[argumentIndex]
+				}
 			}
 
 			fmt.Print(value)
